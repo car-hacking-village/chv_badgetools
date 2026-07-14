@@ -88,7 +88,7 @@ def cansend():
         epilog="Examples:\n"
                "  chv-cansend 7E0#2701000000000000\n"
                "  chv-cansend /dev/ttyACM0 7E0#2701000000000000\n"
-               "  chv-cansend 0ACCE55#01  --extended\n",
+               "  chv-cansend 0ACCE55#01\n",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     _add_port(p)

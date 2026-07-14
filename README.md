@@ -76,14 +76,16 @@ chv-cansend /dev/tty.usbmodem103 7E0#2701000000000000
 Prints all CAN traffic from the badge in real time.
 
 ```
-usage: chv-candump [port] [-b BPS] [--id HEX_ID]
+usage: chv-candump [-h] [-b BPS] [--id HEX_ID] [port]
 
 positional arguments:
-  port          Serial port path. Omit to auto-detect.
+  port               Serial port (e.g. /dev/tty.usbmodem103). Omit to auto-
+                     detect.
 
 options:
-  -b BPS        CAN bitrate in bits/s (default: 500000)
-  --id HEX_ID   Only show frames from this arbitration ID (hex)
+  -h, --help         show this help message and exit
+  -b, --bitrate BPS  CAN bitrate in bits/s (default: 500000)
+  --id HEX_ID        Only show frames from this arbitration ID (hex, e.g. 7E8)
 ```
 
 **Example output:**
@@ -105,15 +107,17 @@ Frames marked `FD` are CAN FD frames (payload > 8 bytes or transmitted in FD mod
 Sends a single CAN frame. The frame format is `ID#DATA` in hex, matching the `cansend` convention from Linux `can-utils`.
 
 ```
-usage: chv-cansend [port] FRAME [--fd] [-b BPS]
+usage: chv-cansend [-h] [-b BPS] [--fd] [port] frame
 
 positional arguments:
-  port          Serial port path. Omit to auto-detect.
-  FRAME         Frame in ID#DATA format (hex).
+  port               Serial port (e.g. /dev/tty.usbmodem103). Omit to auto-
+                     detect.
+  frame              Frame in ID#DATA format (hex). E.g. 7E0#2701000000000000
 
 options:
-  --fd          Send as a CAN FD frame
-  -b BPS        CAN bitrate in bits/s (default: 500000)
+  -h, --help         show this help message and exit
+  -b, --bitrate BPS  CAN bitrate in bits/s (default: 500000)
+  --fd               Send as CAN FD frame
 ```
 
 **Examples:**
