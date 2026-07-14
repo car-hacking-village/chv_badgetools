@@ -35,11 +35,27 @@ _BADGE_VID = 0x2E8A
 
 
 def find_port():
-    """Return the first serial port that looks like a CHV badge, or None."""
-    for p in list_ports.comports():
-        if p.vid == _BADGE_VID:
-            return p.device
-    return None
+    """
+    Return the CHV badge slcan serial port, or None.
+
+    The badge exposes two CDC interfaces: the first is the MicroPython REPL,
+    the second is the slcan MirrorInterface.  We probe each RP2040 port with
+    the slcan version command (V\\r) and return whichever replies with V0100.
+    Falls back to the last RP2040 port if none respond in time.
+    """
+    candidates = sorted(p.device for p in list_ports.comports() if p.vid == _BADGE_VID)
+    for port in reversed(candidates):  # slcan is the last CDC; probe it first
+        try:
+            s = serial.Serial(port, 115200, timeout=0.15)
+            s.write(b"V\r")
+            s.flush()
+            resp = s.read(32)
+            s.close()
+            if b"V0100" in resp:
+                return port
+        except Exception:
+            pass
+    return candidates[-1] if candidates else None
 
 
 class CHVProtocol:
