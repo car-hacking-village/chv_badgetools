@@ -17,7 +17,7 @@ chv-candump  = "chv_badgetools.cli:candump"
 chv-cansend  = "chv_badgetools.cli:cansend"
 chv-find     = "chv_badgetools.cli:find_badge"
 
-[project.entry-points."python_can.interface"]
+[project.entry-points."can.interface"]
 chv = "chv_badgetools.interface:CHVBus"
 
 [tool.hatch.build.targets.wheel]
