@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chv-badgetools"
+version = "0.1.0"
+description = "Host-side CAN tools for the DEF CON 34 Car Hacking Village CTF badge"
+requires-python = ">=3.8"
+dependencies = [
+    "pyserial>=3.5",
+    "python-can>=4.0",
+]
+
+[project.scripts]
+chv-candump  = "chv_badgetools.cli:candump"
+chv-cansend  = "chv_badgetools.cli:cansend"
+chv-find     = "chv_badgetools.cli:find_badge"
+
+[project.entry-points."python_can.interface"]
+chv = "chv_badgetools.interface:CHVBus"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/chv_badgetools"]
