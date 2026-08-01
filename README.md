@@ -16,7 +16,7 @@ Provides `chv-candump`, `chv-cansend`, and a `python-can` interface plugin (`-i 
 ## Installation
 
 ```bash
-git clone https://github.com/CarHackingVillage/chv-badgetools.git
+git clone https://github.com/car-hacking-village/chv_badgetools.git
 cd chv-badgetools
 pip install .
 ```
